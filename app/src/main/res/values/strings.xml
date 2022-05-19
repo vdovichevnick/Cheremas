@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Cheremas Investing</string>
+    <string name="title_home">Market</string>
+    <string name="title_dashboard">Search</string>
+    <string name="title_notifications">Portfolio</string>
+    <string name="noUserInput">Enter text</string>
+    <string name="marketPage">Market situation</string>
+</resources>
