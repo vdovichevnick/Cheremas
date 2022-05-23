@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.t2.R;
-//import com.example.t2.databinding.FragmentDashboardBinding;
 import com.example.t2.ui.CustomArrayAdapter;
 import com.example.t2.ui.ListItemClass;
 
@@ -40,14 +39,12 @@ public class Search extends Fragment {
     private Button butText;
     private TextView textStock1;
 
-    //private FragmentDashboardBinding binding;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SearchViewModel searchViewModel =
-                new ViewModelProvider(this).get(SearchViewModel.class);
 
-        //binding = FragmentDashboardBinding.inflate(inflater, container, false);
+
         View v = inflater.inflate(R.layout.fragment_search, container,false);
         userText=v.findViewById(R.id.userText);
         butText=v.findViewById(R.id.butText);
@@ -59,7 +56,7 @@ public class Search extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(),R.string.noUserInput,Toast.LENGTH_LONG).show();
                 } else {
                     String ticker=userText.getText().toString();
-                    textStock1.setText("Stock searching...");
+                    textStock1.setText(R.string.stockSearching);
                     init(ticker,v);
 
                 }
@@ -104,31 +101,23 @@ public class Search extends Fragment {
                     items.setData2(our_table.children().get(i).child(1+j).text());
                     items.setData3(our_table.children().get(i).child(2+j).text());
                     items.setData4(our_table.children().get(i).child(3+j).text());
-                    arrayList.add(items); //закинуть в адаптер
+                    arrayList.add(items); //отправить в адаптер
                 }
             }
-            getActivity().runOnUiThread(new Runnable() { // адаптер нельзя трогать с второстепенного потока
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    adapter.notifyDataSetChanged(); // обновить информацию
+                    adapter.notifyDataSetChanged();
                 }
             });
         } catch (IOException e){
-            getActivity().runOnUiThread(new Runnable() { // адаптер нельзя трогать с второстепенного потока
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    textStock1.setText("Error! Company not found."); // обновить информацию
+                    textStock1.setText(R.string.cnf);
                 }
             });
             e.printStackTrace();
         }
     }
-/*
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
- */
 }

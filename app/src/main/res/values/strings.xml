@@ -5,4 +5,16 @@
     <string name="title_notifications">Portfolio</string>
     <string name="noUserInput">Enter text</string>
     <string name="marketPage">Market situation</string>
+    <string name="loadingMarketSituation">Loading Stats</string>
+    <string name="stockSearching">Stock searching...</string>
+    <string name="wfe">Waiting for enter...</string>
+    <string name="cnf">Error! Company not found.</string>
+    <string name="atp">Added to your portfolio!</string>
+    <string name="technology">Technology</string>
+    <string name="healthcare">Healthcare</string>
+    <string name="financial">Financial</string>
+    <string name="energy">Energy</string>
+    <string name="industrials">Industrials</string>
+    <string name="other">Other</string>
+    <string name="lp">Loading portfolio </string>
 </resources>

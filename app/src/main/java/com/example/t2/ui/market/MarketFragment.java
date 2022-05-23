@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,30 +27,24 @@ import java.util.List;
 
 public class MarketFragment extends Fragment {
 
-    private Document doc1,doc2,doc3,doc4;
+    private Document doc1,doc3,doc4;
     private Thread secTread;
     private Runnable runnable;
     private ListView listView;
     private CustomArrayAdapter adapter;
     private List<ListItemClass> arrayList;
+    private TextView textStock1;
 
-    //private FragmentHomeBinding binding;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MarketViewModel marketViewModel =
-                new ViewModelProvider(this).get(MarketViewModel.class);
-
-        //binding = FragmentHomeBinding.inflate(inflater, container, false);
         View v = inflater.inflate(R.layout.fragment_market, container,false);
-
+        textStock1 = v.findViewById(R.id.textStock1);
         init(v);
-
-
         return v;
     }
     private void init(View v){
-
         listView = v.findViewById(R.id.listView);
         arrayList = new ArrayList<>();
         adapter = new CustomArrayAdapter(getActivity().getApplicationContext(),R.layout.list_item_1,arrayList,getLayoutInflater());
@@ -62,9 +57,7 @@ public class MarketFragment extends Fragment {
         };
         secTread=new Thread(runnable);
         secTread.start();
-
     }
-    //retrofit
     private void getWeb(){
         try {
             doc1 = Jsoup.connect("https://www.investing.com/indices/mcx").get();
@@ -82,6 +75,12 @@ public class MarketFragment extends Fragment {
             items.setData3(our_table1.children().get(4).child(2).text());
             items.setData4(our_table1.children().get(4).child(3).text());
             arrayList.add(items);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textStock1.setText(getString(R.string.loadingMarketSituation)+" 17%");
+                }
+            });
             items = new ListItemClass();
             items.setData1("Dow Jones");
             items.setData2(our_table1.children().get(2).child(1).text());
@@ -131,12 +130,24 @@ public class MarketFragment extends Fragment {
             items.setData3(our_table4.children().get(4).child(2).text());
             items.setData4(our_table4.children().get(4).child(3).text());
             arrayList.add(items);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textStock1.setText(getString(R.string.loadingMarketSituation)+" 33%");;
+                }
+            });
             items = new ListItemClass();
             items.setData1("Copper");
             items.setData2(our_table4.children().get(5).child(1).text());
             items.setData3(our_table4.children().get(5).child(2).text());
             items.setData4(our_table4.children().get(5).child(3).text());
             arrayList.add(items);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textStock1.setText(getString(R.string.loadingMarketSituation)+" 43%");;
+                }
+            });
             doc3 = Jsoup.connect("https://www.investing.com/crypto/bitcoin/btc-usd").get();
             Elements tables5 = doc3.getElementsByTag("span");
             items = new ListItemClass();
@@ -145,6 +156,12 @@ public class MarketFragment extends Fragment {
             items.setData3(tables5.get(71).text());
             items.setData4(tables5.get(72).text());
             arrayList.add(items);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textStock1.setText(getString(R.string.loadingMarketSituation)+" 67%");;
+                }
+            });
             doc4 = Jsoup.connect("https://www.investing.com/crypto/ethereum/eth-usd").get();
             Elements tables6 = doc4.getElementsByTag("span");
             items = new ListItemClass();
@@ -153,6 +170,12 @@ public class MarketFragment extends Fragment {
             items.setData3(tables6.get(71).text());
             items.setData4(tables6.get(72).text());
             arrayList.add(items);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    textStock1.setText(getString(R.string.marketPage));
+                }
+            });
             /*
             doc1 = Jsoup.connect("https://www.investing.com/indices/us-spx-500").get();
             Elements tables1 = doc1.getElementsByTag("span");
@@ -261,12 +284,4 @@ public class MarketFragment extends Fragment {
             e.printStackTrace();
         }
     }
-/*
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
- */
 }
